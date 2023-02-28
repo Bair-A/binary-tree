@@ -2,16 +2,14 @@ import './App.css';
 // import BinaryRootComponent from './Components/BinaryRootComponent';
 import {useEffect, useState, useRef} from "react";
 
-
+const getNum = () => {
+   const num = Math.round(Math.random() * 100);
+   const sign = Math.round(Math.random()) ? 1 : -1;
+   return num * sign;
+}
 
 function App() {
-   const [root, setRoot] = useState(0);
    const [binaryTreeArr, setBinaryTreeArr] = useState([]);
-   const getNum = () => {
-      const num = Math.round(Math.random() * 100);
-      const sign = Math.round(Math.random()) ? 1 : -1;
-      return num * sign;
-   }
 
    class Node {
       constructor(num) {
@@ -20,11 +18,12 @@ function App() {
          this.right = null;
          this.positionY = null;
          this.positionX = null;
+         this.key = null;
       }
    }
 
    class BinaryTree {
-      constructor() {
+       constructor() {
          this.root = null;
       }
       addNode(num) {
@@ -37,8 +36,10 @@ function App() {
                value : this.root.value,
                positionY: this.root.positionY + 'px',
                positionX: this.root.positionX + 'px',
+               key : +new Date(),
             }]);
             console.log('new root')
+            console.log(binaryTreeArr);
             return
          }
          let currentNode = this.root;
@@ -52,6 +53,7 @@ function App() {
                      value : currentNode.left.value,
                      positionY: currentNode.left.positionY + 'px',
                      positionX: currentNode.left.positionX + 'px',
+                     key : +new Date(),
                   }]);
                   console.log(binaryTreeArr);
                   return
@@ -65,6 +67,7 @@ function App() {
                      value : currentNode.right.value,
                      positionY: currentNode.right.positionY + 'px',
                      positionX: currentNode.right.positionX + 'px',
+                     key : +new Date(),
                   }]);
                   return
                }
@@ -85,8 +88,7 @@ function App() {
    }, [])
    return (
       <div className="App">
-            {binaryTreeArr.map(item => <div key=item.positionX style={{position: 'absolute', left: item.positionX, top: item.positionY}}>{item.value}</div>)
-         }
+            {binaryTreeArr.map(item => <div key={item.key} style={{position: 'absolute', left: item.positionX, top: item.positionY}}>{item.value}</div>)}
       </div>
    );
 }
