@@ -31,8 +31,8 @@ function App() {
          const newNode = new Node(num);
          if (!this.root) {
             this.root = newNode;
-            this.root.topPosition = 10;
-            this.root.leftPosition = document.documentElement.clientWidth / 2;
+            this.root.positionY = 10;
+            this.root.positionX = document.documentElement.clientWidth / 2;
             setBinaryTreeArr([{
                value : this.root.value,
                positionY: this.root.positionY + 'px',
@@ -76,7 +76,7 @@ function App() {
    const binaryTree = useRef(new BinaryTree());
    const handlerSpaceClick = (e) => {
       if (e.code === 'Space') {
-         binaryTree.current.addNode(getNum())
+         binaryTree.current.addNode(getNum());
          console.log(binaryTreeArr);
       }
    };
@@ -85,7 +85,7 @@ function App() {
    }, [])
    return (
       <div className="App">
-            {binaryTreeArr.map(item => <div style={{position: 'absolute', left: item.positionX, top: item.positionY}}>{item.value}</div>)
+            {binaryTreeArr.map(item => <div key=item.positionX style={{position: 'absolute', left: item.positionX, top: item.positionY}}>{item.value}</div>)
          }
       </div>
    );
